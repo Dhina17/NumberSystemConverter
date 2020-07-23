@@ -31,6 +31,14 @@ public class MainActivity extends AppCompatActivity
         convert = new Converter();
         util = new Utils();
 
+        if (savedInstanceState != null) {
+            // If result view is visible, get stored values from bundle and show
+            boolean isResultVisible = savedInstanceState.getBoolean("result_visible");
+            if (isResultVisible) {
+                showResult(savedInstanceState.getString("result_text"));
+                resultView.setVisibility(View.VISIBLE);
+            }
+        }
 
         String[] numberSystems = {"Binary System", "Octa System", "HexaDecimal System"};
         Spinner spinner = findViewById(R.id.spinner);
@@ -42,6 +50,16 @@ public class MainActivity extends AppCompatActivity
         spinner.setAdapter(adapter);
 
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // save result value to bundle if its visible
+        if (resultView.getVisibility() == View.VISIBLE) {
+            outState.putBoolean("result_visible", true);
+            outState.putString("result_text", resultView.getText().toString());
+        }
     }
 
     public void calculate(View view) {

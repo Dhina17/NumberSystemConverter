@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity
     private int spinOption;
     private EditText viewInputNumber;
     private TextView resultView;
+    private TextView resultHeadView;
     private Converter convert;
     private Utils util;
 
@@ -28,15 +29,15 @@ public class MainActivity extends AppCompatActivity
 
         viewInputNumber = findViewById(R.id.number_input);
         resultView = findViewById(R.id.result_field);
+        resultHeadView = findViewById(R.id.result_head);
         convert = new Converter();
         util = new Utils();
 
         if (savedInstanceState != null) {
-            // If result view is visible, get stored values from bundle and show
-            boolean isResultVisible = savedInstanceState.getBoolean("result_visible");
-            if (isResultVisible) {
+            // If result head view is visible, get stored values from bundle and show
+            boolean isResultHeadVisible = savedInstanceState.getBoolean("result_visible");
+            if (isResultHeadVisible) {
                 showResult(savedInstanceState.getString("result_text"));
-                resultView.setVisibility(View.VISIBLE);
             }
         }
 
@@ -55,8 +56,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        // save result value to bundle if its visible
-        if (resultView.getVisibility() == View.VISIBLE) {
+        // save the values of the result if the Result Head is visible
+        if (resultHeadView.getVisibility() == View.VISIBLE) {
             outState.putBoolean("result_visible", true);
             outState.putString("result_text", resultView.getText().toString());
         }
@@ -101,7 +102,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showResult(String value) {
+        resultHeadView.setVisibility(View.VISIBLE);
         resultView.setText(value);
+        resultView.setVisibility(View.VISIBLE);
+
     }
 
     private Double getUserInput(EditText viewInputNumber) {

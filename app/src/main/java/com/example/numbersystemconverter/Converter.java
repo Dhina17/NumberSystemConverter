@@ -1,12 +1,11 @@
 package com.example.numbersystemconverter;
 
 
-public class Converter {
+class Converter {
 
-    static String finalResult ="";
-    static String returnResult;
+    private static String returnResult;
 
-    public String convert(int userInputNumber, int radix) {
+    String convert(int userInputNumber, int radix) {
 
 
         int quotient = userInputNumber / radix;
@@ -20,20 +19,21 @@ public class Converter {
         int[] rem = {remainder};
 
         for (int i : rem) {
+            String finalResult = "";
             if (radix < 16) {
                 if (quotient < radix) {
-                    returnResult=finalResult.concat(String.valueOf(quotient));
-                    returnResult+=finalResult.concat(String.valueOf(i));
+                    returnResult= finalResult.concat(String.valueOf(quotient));
+                    returnResult+= finalResult.concat(String.valueOf(i));
                 } else {
 
-                    returnResult+=finalResult.concat(String.valueOf(i));
+                    returnResult+= finalResult.concat(String.valueOf(i));
                 }
             }else{
                 if(quotient<16){
-                    returnResult=finalResult.concat(numToAlpha(quotient));
-                    returnResult+=finalResult.concat(numToAlpha(i));
+                    returnResult= finalResult.concat(numToAlpha(quotient));
+                    returnResult+= finalResult.concat(numToAlpha(i));
                 }else{
-                    returnResult+=finalResult.concat(numToAlpha(i));
+                    returnResult+= finalResult.concat(numToAlpha(i));
                 }
 
             }

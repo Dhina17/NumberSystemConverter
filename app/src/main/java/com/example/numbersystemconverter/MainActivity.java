@@ -1,6 +1,7 @@
 package com.example.numbersystemconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +18,6 @@ public class MainActivity extends AppCompatActivity
     private TextView resultView;
     private Converter convert;
     private Utils util;
-
 
 
     @Override
@@ -45,50 +45,41 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void calculate(View view) {
-        Double userInput;
-        String wholeNumberPartResult = "0";
-        String FractionPartResult = "0";
 
-
-        try{
-
+        try {
+            double userInput;
+            String wholeNumberPartResult = "0";
+            String fractionPartResult = "0";
             userInput = getUserInput(viewInputNumber);
             int wholeNumberPart = Integer.parseInt(util.spiltInt(userInput));
-            Double fractionPart = Double.parseDouble(util.splitFraction(userInput));
-            switch(spinOption){
+            double fractionPart = Double.parseDouble(util.splitFraction(userInput));
+            switch (spinOption) {
                 case 0:
-                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart,2);
-                    FractionPartResult = convert.decimalPartConverter(fractionPart,2);
+                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart, 2);
+                    fractionPartResult = convert.decimalPartConverter(fractionPart, 2);
                     break;
                 case 1:
-                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart,8);
-                    FractionPartResult = convert.decimalPartConverter(fractionPart,8);
+                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart, 8);
+                    fractionPartResult = convert.decimalPartConverter(fractionPart, 8);
                     break;
                 case 2:
-                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart,16);
-                    FractionPartResult = convert.decimalPartConverter(fractionPart,16);
+                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart, 16);
+                    fractionPartResult = convert.decimalPartConverter(fractionPart, 16);
                     break;
                 default:
                     String error = "Error.Retry";
                     showResult(error);
                     break;
-
             }
-
-
-        }catch(Exception e){
-
-            String error = "Empty input";
-            showResult(error);
+            if (fractionPartResult.isEmpty()) {
+                showResult(wholeNumberPartResult);
+            } else {
+                String combinedResult = wholeNumberPartResult + "." + fractionPartResult;
+                showResult(combinedResult);
+            }
+        } catch (Exception e) {
+            showResult("Empty Input");
         }
-
-        if(FractionPartResult.isEmpty()){
-            showResult(wholeNumberPartResult);
-        }else{
-            String combinedResult = wholeNumberPartResult +"."+ FractionPartResult;
-            showResult(combinedResult);
-        }
-
     }
 
     private void showResult(String value) {

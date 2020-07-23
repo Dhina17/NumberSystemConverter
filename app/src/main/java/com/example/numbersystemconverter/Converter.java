@@ -21,18 +21,18 @@ class Converter {
             String finalResult = "";
             if (radix < 16) {
                 if (quotient < radix) {
-                    returnResult= finalResult.concat(String.valueOf(quotient));
-                    returnResult+= finalResult.concat(String.valueOf(i));
+                    returnResult = finalResult.concat(String.valueOf(quotient));
+                    returnResult += finalResult.concat(String.valueOf(i));
                 } else {
 
-                    returnResult+= finalResult.concat(String.valueOf(i));
+                    returnResult += finalResult.concat(String.valueOf(i));
                 }
-            }else{
-                if(quotient<16){
-                    returnResult= finalResult.concat(numToAlpha(quotient));
-                    returnResult+= finalResult.concat(numToAlpha(i));
-                }else{
-                    returnResult+= finalResult.concat(numToAlpha(i));
+            } else {
+                if (quotient < 16) {
+                    returnResult = finalResult.concat(numToAlpha(quotient));
+                    returnResult += finalResult.concat(numToAlpha(i));
+                } else {
+                    returnResult += finalResult.concat(numToAlpha(i));
                 }
 
             }
@@ -40,7 +40,7 @@ class Converter {
         return returnResult;
     }
 
-    String decimalPartConverter(double value,int radix) {
+    String decimalPartConverter(double value, int radix) {
         String result = "";
         for (int i = 0; i < 10; i++) {
             if (value == 0) {
@@ -61,19 +61,19 @@ class Converter {
     }
 
     private String numToAlpha(int i) {
-        if(i == 10){
+        if (i == 10) {
             return "A";
-        }else if(i == 11) {
+        } else if (i == 11) {
             return "B";
-        }else if(i == 12) {
+        } else if (i == 12) {
             return "C";
-        }else if(i == 13) {
+        } else if (i == 13) {
             return "D";
-        }else if(i == 14) {
+        } else if (i == 14) {
             return "E";
-        }else if (i == 15) {
+        } else if (i == 15) {
             return "F";
-        }else{
+        } else {
             return String.valueOf(i);
         }
     }

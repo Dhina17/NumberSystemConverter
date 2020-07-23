@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Number System Converter</string>
-    <string name="input_number_hint">Enter a whole number</string>
-    <string name="calculate_button_text">Calculate</string>
+    <string name="input_number_hint">Enter a number</string>
+    <string name="calculate_button_text">Convert</string>
     <string name="instruction_text">Converter - Decimal System to Other System</string>
-    <string name="result_text">Result</string>
+    <string name="result_text">Result(~)</string>
 </resources>

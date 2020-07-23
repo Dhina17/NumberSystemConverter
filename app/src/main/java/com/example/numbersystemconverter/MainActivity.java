@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity
     private EditText viewInputNumber;
     private TextView resultView;
     private Converter convert;
+    private Utils util;
 
 
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         viewInputNumber = findViewById(R.id.number_input);
         resultView = findViewById(R.id.result_field);
         convert = new Converter();
+        util = new Utils();
 
 
         String[] numberSystems = {"Binary System", "Octa System", "HexaDecimal System"};
@@ -43,28 +45,32 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void calculate(View view) {
-        int userInput;
-        String result;
+        Double userInput;
+        String wholeNumberPartResult = "0";
+        String FractionPartResult = "0";
 
 
         try{
 
             userInput = getUserInput(viewInputNumber);
-
+            int wholeNumberPart = Integer.parseInt(util.spiltInt(userInput));
+            Double fractionPart = Double.parseDouble(util.splitFraction(userInput));
             switch(spinOption){
                 case 0:
-
-                    result = convert.convert(userInput,2);
-
+                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart,2);
+                    FractionPartResult = convert.decimalPartConverter(fractionPart,2);
                     break;
                 case 1:
-                    result = convert.convert(userInput,8);
+                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart,8);
+                    FractionPartResult = convert.decimalPartConverter(fractionPart,8);
                     break;
                 case 2:
-                    result = convert.convert(userInput,16);
+                    wholeNumberPartResult = convert.wholeNumberPartConverter(wholeNumberPart,16);
+                    FractionPartResult = convert.decimalPartConverter(fractionPart,16);
                     break;
                 default:
-                    result = "Error.Retry";
+                    String error = "Error.Retry";
+                    showResult(error);
                     break;
 
             }
@@ -72,16 +78,26 @@ public class MainActivity extends AppCompatActivity
 
         }catch(Exception e){
 
-            result = "Empty input";
+            String error = "Empty input";
+            showResult(error);
         }
 
-        resultView.setText(result);
+        if(FractionPartResult.isEmpty()){
+            showResult(wholeNumberPartResult);
+        }else{
+            String combinedResult = wholeNumberPartResult +"."+ FractionPartResult;
+            showResult(combinedResult);
+        }
 
     }
 
-    private int getUserInput(EditText viewInputNumber) {
+    private void showResult(String value) {
+        resultView.setText(value);
+    }
+
+    private Double getUserInput(EditText viewInputNumber) {
         String inputText = getUserInputString(viewInputNumber);
-        return Integer.valueOf(inputText);
+        return Double.valueOf(inputText);
     }
 
     private String getUserInputString(EditText viewInputNumberText) {

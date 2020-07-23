@@ -4,16 +4,15 @@ package com.example.numbersystemconverter;
 class Converter {
 
     private static String returnResult;
+    private Utils util = new Utils();
 
-    String convert(int userInputNumber, int radix) {
-
-
+    String wholeNumberPartConverter(int userInputNumber, int radix) {
         int quotient = userInputNumber / radix;
         int remainder = userInputNumber % radix;
         userInputNumber = quotient;
 
         if (quotient >= radix) {
-            convert(userInputNumber, radix);
+            wholeNumberPartConverter(userInputNumber, radix);
         }
 
         int[] rem = {remainder};
@@ -39,6 +38,26 @@ class Converter {
             }
         }
         return returnResult;
+    }
+
+    String decimalPartConverter(double value,int radix) {
+        String result = "";
+        for (int i = 0; i < 10; i++) {
+            if (value == 0) {
+                break;
+            } else {
+                double q = value * radix;
+                value = Double.parseDouble(util.splitFraction(q));
+
+                if (radix == 16) {
+                    result += numToAlpha(Integer.parseInt(util.spiltInt(q)));
+                } else {
+                    result += util.spiltInt(q);
+                }
+
+            }
+        }
+        return result;
     }
 
     private String numToAlpha(int i) {

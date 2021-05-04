@@ -11,4 +11,3 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - shkaksjw
